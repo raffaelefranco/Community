@@ -78,11 +78,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void continueLogin() {
-        // Show ProgressDialog as Login process begins
         mDialog = ProgressDialogFragment.newInstance();
-        // Show new ProgressDialogFragment
         mDialog.show(getFragmentManager(), "Login");
-        // Finish the Login process
         finishLogin();
     }
 
@@ -91,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    // Pretend to do something before login
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     Log.i(TAG, e.toString());
@@ -111,14 +107,11 @@ public class LoginActivity extends AppCompatActivity {
             return new ProgressDialogFragment();
         }
 
-        // Build ProgressDialog
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            //Create new ProgressDialog
             final ProgressDialog dialog = new ProgressDialog(getActivity());
-            // Set Dialog message
             dialog.setMessage(getString(R.string.loading));
-            // Dialog will be displayed for an unknown amount of time
             dialog.setIndeterminate(true);
             return dialog;
         }
