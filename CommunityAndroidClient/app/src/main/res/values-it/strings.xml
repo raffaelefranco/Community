@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CommunityAndroidClient</string>
+    <string name="plain_text">CommunityAndroidClient</string>
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
+    <string name="remember_me">Ricordami</string>
+    <string name="login">Login</string>
+    <string name="sign_in">Registrati</string>
+    <string name="menu">Menu</string>
+    <string name="insert_data">Inserisci i dati</string>
+    <string name="cancel">Annulla</string>
+    <string name="loading">Caricamento</string>
+    <string name="incorrect">Username e/o password errati</string>
+    <string name="not_available">Username non disponibile</string>
+    <string name="add_user">Utente aggiunto: </string>
+    <string name="unregistered">Utente non registrato</string>
+    <string name="wrong_credential">Credenziali errate</string>
+    <string name="title">Inserire titolo:</string>
+    <string name="text">Inserire testo:</string>
+    <string name="act_new_req">Nuova Richiesta</string>
+    <string name="act_opened_req">Richieste Aperte</string>
+    <string name="act_all_req">Tutte le Richieste</string>
+    <string name="act_closed_req">Richieste Chiuse</string>
+    <string name="act_close_req">Chiudi una Richiesta</string>
+    <string name="act_logout">Logout</string>
+    <string name="act_info">Info</string>
+    <string name="descr_new_req">Aggiungi una richiesta</string>
+    <string name="descr_opened_req">Visualizza le richieste aperte dell utente loggato</string>
+    <string name="descr_all_req">Visualizza tutte le richieste aperte della comunità</string>
+    <string name="descr_closed_req">Visualizza le richieste chiuse dell utente loggato</string>
+    <string name="descr_close_req">Chiudi una richiesta postata dall utente loggato</string>
+    <string name="descr_info">Applicazione android per condividere richieste fra gli utenti della comunità</string>
+    <string name="exit">Vuoi davvero uscire?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="no_requests">Nessuna richiesta trovata</string>
+    <string name="close_req">Richieste chiuse</string>
+    <string name="answer">Rispondi</string>
+    <string name="close">Chiudi</string>
+    <string name="key">QuestionKey</string>
+    <string name="key_response">ResponseKey</string>
+    <string name="no_responses_available">Nessuna risposta trovata</string>
+</resources>

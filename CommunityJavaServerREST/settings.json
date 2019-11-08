@@ -1,0 +1,1 @@
+{port:8182,storage_base_dir:storage,storage_base_file:db.ser,users_storage_base_dir:users,users_storage_base_file:user.ser,web_base_dir:web}
