@@ -80,7 +80,7 @@ public class CommunityRegistryAPI {
 			if (fileEntry.getName().substring(0, baseStorageFile.length()).equalsIgnoreCase(baseStorageFile)) {
 				try {
 					c = Integer.parseInt(fileEntry.getName().substring(baseStorageFile.length() + 1));
-				} catch (NumberFormatException /* | StringIndexOutOfBoundsException */e) {
+				} catch (NumberFormatException  | StringIndexOutOfBoundsException e) {
 					c = -1;
 				}
 				if (c > max)
