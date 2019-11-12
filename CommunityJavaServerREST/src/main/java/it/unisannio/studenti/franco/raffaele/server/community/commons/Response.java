@@ -40,8 +40,25 @@ public class Response implements Serializable {
 		return "ext=" + text + ", user=" + user + ";";
 	}
 
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public void incrementScore(int increment) {
+		this.score+=increment;
+	}
+
+	public void decrementScore(int descrement) {
+		this.score-=descrement;
+	}
+	
 	private String text;
 	private String user;
+	private int score;
 	private Question question;
 
 }

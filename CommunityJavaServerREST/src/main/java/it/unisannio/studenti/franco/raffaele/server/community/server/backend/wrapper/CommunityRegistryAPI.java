@@ -110,7 +110,7 @@ public class CommunityRegistryAPI {
 			System.err.println("Restore storage from: " + fileName);
 			try {
 				cr.load(fileName);
-			} catch (/*ClassNotFoundException |*/ IOException e) {
+			} catch (IOException e) {
 				System.err.println("Restore filed - starting a new registry " + e.getCause() + " " + e.getMessage());
 				cr = new CommunityRegistry();
 			} catch (ClassNotFoundException e) {

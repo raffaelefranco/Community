@@ -36,10 +36,10 @@
         android:id="@+id/imageView4"
         android:layout_width="59dp"
         android:layout_height="49dp"
-        android:layout_marginStart="284dp"
+        android:layout_marginStart="336dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/next_arrow" />
+        app:srcCompat="@drawable/next" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
