@@ -64,10 +64,27 @@ public class Question implements Serializable {
 				+ responses.toString() + ";";
 	}
 
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public void incrementScore(int increment) {
+		this.score+=increment;
+	}
+
+	public void decrementScore(int descrement) {
+		this.score-=descrement;
+	}
+
 	private String title;
 	private String text;
 	private String status;
 	private String user;
+	private int score;
 	private LinkedHashSet<Response> responses;
 
 }

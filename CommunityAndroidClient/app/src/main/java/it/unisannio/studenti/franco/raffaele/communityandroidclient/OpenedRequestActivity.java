@@ -32,7 +32,7 @@ public class OpenedRequestActivity extends AppCompatActivity {
     private String baseURI = "http://10.0.2.2:8182/CommunityApplication/";
     private SharedPreferences preferences;
     private ListView list;
-    private final String TAG = "LAURA_DICTIONARY";
+    private final String TAG = "Community";
     private ArrayAdapter<String> adapter;
     private ArrayList<String> questions;
     private Question question;

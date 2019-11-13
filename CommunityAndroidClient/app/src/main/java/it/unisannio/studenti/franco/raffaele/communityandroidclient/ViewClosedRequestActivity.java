@@ -45,6 +45,7 @@ public class ViewClosedRequestActivity extends AppCompatActivity {
     private ArrayList<Item> responses;
     private TextView title;
     private TextView text;
+    private TextView username_req;
     private CustomAdapter adapter;
     private String param;
     private Set<String> titles;
@@ -58,6 +59,7 @@ public class ViewClosedRequestActivity extends AppCompatActivity {
 
         title = (TextView) findViewById(R.id.textView_title1);
         text = (TextView) findViewById(R.id.textView_text1);
+        username_req = (TextView) findViewById(R.id.textView_username_req1);
         list = (ListView) findViewById(R.id.response_list1);
 
         Intent fromCaller = getIntent();
@@ -118,6 +120,7 @@ public class ViewClosedRequestActivity extends AppCompatActivity {
             if (res != null) {
                 title.setText(question.getTitle().toString());
                 text.setText(question.getText().toString());
+                username_req.setText(question.getUser().toString());
 
                 responses = new ArrayList<Item>();
 

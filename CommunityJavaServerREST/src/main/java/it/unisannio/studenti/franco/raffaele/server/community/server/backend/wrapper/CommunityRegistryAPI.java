@@ -80,7 +80,7 @@ public class CommunityRegistryAPI {
 			if (fileEntry.getName().substring(0, baseStorageFile.length()).equalsIgnoreCase(baseStorageFile)) {
 				try {
 					c = Integer.parseInt(fileEntry.getName().substring(baseStorageFile.length() + 1));
-				} catch (NumberFormatException /* | StringIndexOutOfBoundsException */e) {
+				} catch (NumberFormatException  | StringIndexOutOfBoundsException e) {
 					c = -1;
 				}
 				if (c > max)
@@ -110,7 +110,7 @@ public class CommunityRegistryAPI {
 			System.err.println("Restore storage from: " + fileName);
 			try {
 				cr.load(fileName);
-			} catch (/*ClassNotFoundException |*/ IOException e) {
+			} catch (IOException e) {
 				System.err.println("Restore filed - starting a new registry " + e.getCause() + " " + e.getMessage());
 				cr = new CommunityRegistry();
 			} catch (ClassNotFoundException e) {
