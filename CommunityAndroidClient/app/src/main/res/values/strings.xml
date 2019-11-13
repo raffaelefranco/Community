@@ -39,5 +39,6 @@
     <string name="close">Close</string>
     <string name="key">QuestionKey</string>
     <string name="key_response">ResponseKey</string>
+    <string name="key_response1">ResponseKey1</string>
     <string name="no_responses_available">No responses available</string>
 </resources>

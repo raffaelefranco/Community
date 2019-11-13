@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import org.restlet.resource.ClientResource;
@@ -39,10 +40,10 @@ import static it.unisannio.studenti.franco.raffaele.communityandroidclient.Login
 
 public class ViewOpenedRequestActivity extends AppCompatActivity {
 
+    private final String TAG = "Community";
     private String baseURI = "http://10.0.2.2:8182/CommunityApplication/";
     private SharedPreferences preferences;
     private ListView list;
-    private final String TAG = "Community";
     private Question question;
     private ArrayList<Item> responses;
     private TextView title;
@@ -54,6 +55,9 @@ public class ViewOpenedRequestActivity extends AppCompatActivity {
     private Button menu;
     private String param;
     private Set<String> titles;
+    private TextView score;
+    private Button up;
+    private Button down;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +66,16 @@ public class ViewOpenedRequestActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences(prefName, MODE_PRIVATE);
 
-        title = (TextView) findViewById(R.id.textView_title);
-        text = (TextView) findViewById(R.id.textView_text);
-        username_req = (TextView) findViewById(R.id.textView_username_req);
-        list = (ListView) findViewById(R.id.response_list);
-        answer = (Button) findViewById(R.id.answer);
-        close = (Button) findViewById(R.id.close);
-        menu = (Button) findViewById(R.id.menu_button);
+        title = findViewById(R.id.textView_title);
+        text = findViewById(R.id.textView_text);
+        username_req = findViewById(R.id.textView_username_req);
+        list = findViewById(R.id.response_list);
+        answer = findViewById(R.id.answer);
+        close = findViewById(R.id.close);
+        menu = findViewById(R.id.menu_button);
+        score = findViewById(R.id.textView_score);
+        up = findViewById(R.id.up);
+        down = findViewById(R.id.down);
 
         Intent fromCaller = getIntent();
         param = fromCaller.getStringExtra(getResources().getString(R.string.key));
@@ -104,7 +111,32 @@ public class ViewOpenedRequestActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ViewOpenedRequestActivity.this, ViewResponseActivity.class);
                 intent.putExtra(getResources().getString(R.string.key_response), responses.get(position).getDescription());
+                intent.putExtra(getResources().getString(R.string.key_response1), question.searchResponseByUserEText(responses.get(position).getActivity(), responses.get(position).getDescription()));
                 startActivity(intent);
+            }
+
+        });
+
+        up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ViewOpenedRequestActivity.ScoreQuestionTask().execute(param, "5");
+                int score1 = question.getScore() + 5;
+                score.setText(Integer.toString(score1));
+                up.setClickable(false);
+                down.setClickable(false);
+
+            }
+        });
+        down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ViewOpenedRequestActivity.ScoreQuestionTask().execute(param, "2");
+                int score1 = question.getScore() - 2;
+                score.setText(Integer.toString(score1));
+                up.setClickable(false);
+                down.setClickable(false);
+
             }
         });
     }
@@ -150,9 +182,11 @@ public class ViewOpenedRequestActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String res) {
             if (res != null) {
-                title.setText(question.getTitle().toString());
-                text.setText(question.getText().toString());
-                username_req.setText(question.getUser().toString());
+                title.setText(question.getTitle());
+                text.setText(question.getText());
+                username_req.setText(question.getUser());
+                String scoreString = Integer.toString(question.getScore());
+                score.setText(scoreString);
 
                 responses = new ArrayList<Item>();
 
@@ -209,7 +243,69 @@ public class ViewOpenedRequestActivity extends AppCompatActivity {
         protected void onPostExecute(String res) {
 
             preferences.getStringSet("titles", titles);
+
             Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+
+            titles = preferences.getStringSet("titles", titles);
+
+            if (titles == null) {
+                titles = new HashSet<>();
+            }
+
+            titles.add(String.valueOf(title.getText()));
+            SharedPreferences.Editor edit = preferences.edit();
+
+            edit.putStringSet("titles", titles).apply();
+        }
+    }
+
+
+    public class ScoreQuestionTask extends AsyncTask<String, Void, String> {
+
+        protected String doInBackground(String... params) {
+
+            ClientResource cr;
+            Gson gson = new Gson();
+            String username = preferences.getString("username", null);
+
+            if (username == null) {
+                username = preferences.getString("user", null);
+            }
+
+            String URI = baseURI + "score_requests/" + username;
+            String jsonResponse = null;
+            cr = new ClientResource(URI);
+
+            try {
+                jsonResponse = cr.post(gson.toJson(params[0] + ";" + params[1], String.class)).getText();
+                if (cr.getStatus().getCode() == ErrorCodes.INVALID_KEY_CODE)
+                    throw gson.fromJson(jsonResponse, InvalidKeyException.class);
+            } catch (ResourceException | IOException e1) {
+                if (org.restlet.data.Status.CLIENT_ERROR_UNAUTHORIZED.equals(cr.getStatus())) {
+                    // Unauthorized access
+                    jsonResponse = "Access unauthorized by the server, check your credentials";
+                    Log.e(TAG, jsonResponse);
+                } else {
+                    jsonResponse = "Error: " + cr.getStatus().getCode() + " - " + cr.getStatus().getDescription() +
+                            " - " + cr.getStatus().getReasonPhrase();
+                    Log.e(TAG, jsonResponse);
+                }
+            } catch (InvalidKeyException e2) {
+                String error2 = "Error: " + cr.getStatus().getCode() + " - " + e2.getMessage();
+                Log.e(TAG, error2);
+            }
+            return jsonResponse;
+        }
+
+        @Override
+        protected void onPostExecute(String res) {
+
+            preferences.getStringSet("titles", titles);
+            //Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+            ;
+
+            Snackbar snackbar = Snackbar.make(answer, res, Snackbar.LENGTH_LONG);
+            snackbar.show();
 
             titles = preferences.getStringSet("titles", titles);
 
@@ -237,8 +333,8 @@ public class ViewOpenedRequestActivity extends AppCompatActivity {
 
             convertView = inflater.inflate(R.layout.list_item_responses, null);
 
-            TextView activity = (TextView) convertView.findViewById(R.id.username_resp);
-            TextView description = (TextView) convertView.findViewById(R.id.response);
+            TextView activity = convertView.findViewById(R.id.username_resp);
+            TextView description = convertView.findViewById(R.id.response);
 
             Item item = getItem(position);
 

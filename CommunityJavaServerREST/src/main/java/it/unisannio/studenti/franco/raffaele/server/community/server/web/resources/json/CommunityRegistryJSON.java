@@ -46,4 +46,5 @@ public class CommunityRegistryJSON extends ServerResource {
 		}
 	}
 
+
 }

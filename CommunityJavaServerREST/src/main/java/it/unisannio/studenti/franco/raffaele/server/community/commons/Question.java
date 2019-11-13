@@ -11,6 +11,7 @@ public class Question implements Serializable {
 		this.title = title;
 		this.text = text;
 		this.status = Costant.STATUSOPEN;
+		this.score = 0;
 		this.user = null;
 		this.responses = new LinkedHashSet<Response>();
 	}
@@ -80,11 +81,13 @@ public class Question implements Serializable {
 		this.score-=descrement;
 	}
 	
+
+
 	private String title;
 	private String text;
 	private String status;
 	private String user;
-	private int score;
+	private Integer score;
 	private LinkedHashSet<Response> responses;
 
 }

@@ -12,6 +12,7 @@ public class Question implements Serializable {
 		this.text = text;
 		this.status = Costant.STATUSOPEN;
 		this.user = null;
+		this.score = 0;
 		this.responses = new LinkedHashSet<Response>();
 	}
 
@@ -64,7 +65,7 @@ public class Question implements Serializable {
 				+ responses.toString() + ";";
 	}
 
-	public int getScore() {
+	public Integer getScore() {
 		return score;
 	}
 
@@ -80,11 +81,19 @@ public class Question implements Serializable {
 		this.score-=descrement;
 	}
 
+	public Response searchResponseByUserEText(String user, String text) {
+
+		for(Response r : responses)
+			if(r.getUser().equals(user) && r.getText().equals(text))
+				return r;
+		return null;
+	}
+
 	private String title;
 	private String text;
 	private String status;
 	private String user;
-	private int score;
+	private Integer score;
 	private LinkedHashSet<Response> responses;
 
 }
