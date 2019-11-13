@@ -11,7 +11,7 @@ public class ViewResponseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_item_requests);
+        setContentView(R.layout.activity_view_response);
 
         Intent fromCaller = getIntent();
         String param = fromCaller.getStringExtra(getResources().getString(R.string.key_response));
