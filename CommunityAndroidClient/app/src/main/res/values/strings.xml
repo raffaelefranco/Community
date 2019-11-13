@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">CommunityAndroidClient</string>
-    <string name="plain_text">CommunityAndroidClient</string>
+    <string name="app_name">Community</string>
+    <string name="plain_text">Community</string>
     <string name="username">Username:</string>
     <string name="password">Password:</string>
     <string name="remember_me">Remember me</string>
@@ -29,7 +29,7 @@
     <string name="descr_all_req">View all opened requests of the community</string>
     <string name="descr_closed_req">View closed requests post by logged user</string>
     <string name="descr_close_req">Close an opened request post by logged user</string>
-    <string name="descr_info">Android application to share requests through registered user</string>
+    <string name="descr_info">Android application to share requests</string>
     <string name="exit">Do you really want to exit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
