@@ -19,6 +19,7 @@ import it.unisannio.studenti.franco.raffaele.server.community.server.web.resourc
 import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.CommunityRegistryJSON;
 import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.QuestionJSON;
 import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.ScoreRequestJSON;
+import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.ScoreResponseJSON;
 import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.UserLogJSON;
 import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.UserRegJSON;
 

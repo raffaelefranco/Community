@@ -38,7 +38,7 @@ public class Response implements Serializable {
 	}
 
 	public String toString() {
-		return "ext=" + text + ", user=" + user + ";";
+		return "ext=" + text + ", question=" + question.toString() + ";";
 	}
 
 	public int getScore() {

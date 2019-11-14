@@ -1,4 +1,4 @@
-package it.unisannio.studenti.franco.raffaele.server.community.server.web.frontend;
+package it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json;
 
 import java.text.ParseException;
 import java.util.StringTokenizer;

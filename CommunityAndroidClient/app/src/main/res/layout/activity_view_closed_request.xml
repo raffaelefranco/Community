@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,8 +22,8 @@
 
     <TextView
         android:id="@+id/textView_title1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="343dp"
+        android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="132dp"
         android:layout_marginEnd="8dp"
@@ -51,7 +52,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"
-        android:text="100"
+        android:text="5"
         android:textColor="@color/colorForText"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,13 +63,12 @@
 
     <ListView
         android:id="@+id/response_list1"
-        android:layout_width="351dp"
-        android:layout_height="332dp"
+        android:layout_width="339dp"
+        android:layout_height="239dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="292dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,7 +77,7 @@
         android:layout_width="48dp"
         android:layout_height="30dp"
         android:layout_marginTop="60dp"
-        android:layout_marginEnd="156dp"
+        android:layout_marginEnd="168dp"
         android:background="@drawable/up"
         android:clickable="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +88,7 @@
         android:layout_width="48dp"
         android:layout_height="30dp"
         android:layout_marginTop="60dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="44dp"
         android:background="@drawable/down"
         android:clickable="false"
         app:layout_constraintEnd_toEndOf="parent"

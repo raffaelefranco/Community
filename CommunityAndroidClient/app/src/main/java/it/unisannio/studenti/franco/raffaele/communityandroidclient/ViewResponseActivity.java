@@ -56,8 +56,6 @@ public class ViewResponseActivity extends AppCompatActivity {
         String param = fromCaller.getStringExtra(getResources().getString(R.string.key_response));
         r = (Response) fromCaller.getSerializableExtra(getResources().getString(R.string.key_response1));
 
-        Log.i(TAG, param);
-
         username_req.setText(r.getUser().toString());
         score.setText(Integer.toString(r.getScore()));
 

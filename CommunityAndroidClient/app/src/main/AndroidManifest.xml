@@ -30,7 +30,7 @@
         <activity android:name=".ViewClosedRequestActivity"></activity>
         <activity android:name=".ViewOpenedRequestActivity"></activity>
         <activity android:name=".ViewResponseActivity"></activity>
-
+        <activity android:name=".ViewClosedResponseActivity"></activity>
 
     </application>
 

@@ -46,6 +46,7 @@ public class ViewClosedRequestActivity extends AppCompatActivity {
     private TextView title;
     private TextView text;
     private TextView username_req;
+    private TextView score;
     private CustomAdapter adapter;
     private String param;
     private Set<String> titles;
@@ -60,6 +61,7 @@ public class ViewClosedRequestActivity extends AppCompatActivity {
         title = (TextView) findViewById(R.id.textView_title1);
         text = (TextView) findViewById(R.id.textView_text1);
         username_req = (TextView) findViewById(R.id.textView_username_req1);
+        score = (TextView) findViewById(R.id.textView_score);
         list = (ListView) findViewById(R.id.response_list1);
 
         Intent fromCaller = getIntent();
@@ -70,8 +72,10 @@ public class ViewClosedRequestActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ViewClosedRequestActivity.this, ViewResponseActivity.class);
+
+                Intent intent = new Intent(ViewClosedRequestActivity.this, ViewClosedResponseActivity.class);
                 intent.putExtra(getResources().getString(R.string.key_response), responses.get(position).getDescription());
+                intent.putExtra(getResources().getString(R.string.key_response1), question.searchResponseByUserEText(responses.get(position).getActivity(), responses.get(position).getDescription()));
                 startActivity(intent);
             }
         });
@@ -121,7 +125,7 @@ public class ViewClosedRequestActivity extends AppCompatActivity {
                 title.setText(question.getTitle().toString());
                 text.setText(question.getText().toString());
                 username_req.setText(question.getUser().toString());
-
+                score.setText(question.getScore().toString());
                 responses = new ArrayList<Item>();
 
                 for (Response r : question.getResponses())

@@ -36,7 +36,7 @@ public class UserRegistryAPI {
 	public synchronized ArrayList<String> getOpenedQuestions(String username) throws InvalidUsernameException {
 		return ur.getOpenedQuestions(username);
 	}
-	
+
 	public synchronized ArrayList<String> getClosedQuestions(String username) throws InvalidUsernameException {
 		return ur.getClosedQuestions(username);
 	}
@@ -46,7 +46,6 @@ public class UserRegistryAPI {
 		commit();
 	}
 
-	// Imposto le informazioni di storage degli utent
 	public void setStorageFiles(String rootDirForStorageFile, String baseStorageFile) {
 		this.rootDirForStorageFile = rootDirForStorageFile;
 		this.baseStorageFile = baseStorageFile;
@@ -54,8 +53,6 @@ public class UserRegistryAPI {
 		System.err.println("Users Storage Base File: " + this.baseStorageFile);
 	}
 
-	// Costruisco l'estensione del file in base ai file gi� presenti all'interno
-	// della cartella
 	protected int buildStorageFileExtension() {
 		final File folder = new File(rootDirForStorageFile);
 		int c;
@@ -65,7 +62,7 @@ public class UserRegistryAPI {
 			if (fileEntry.getName().substring(0, baseStorageFile.length()).equalsIgnoreCase(baseStorageFile)) {
 				try {
 					c = Integer.parseInt(fileEntry.getName().substring(baseStorageFile.length() + 1));
-				} catch (/*NumberFormatException | */StringIndexOutOfBoundsException e) {
+				} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
 					c = -1;
 				}
 				if (c > max)
@@ -75,7 +72,6 @@ public class UserRegistryAPI {
 		return max;
 	}
 
-	// Effettuo il salvataggio (commit) delle modifiche su file
 	public synchronized void commit() {
 		int extension = buildStorageFileExtension();
 		String fileName = rootDirForStorageFile + baseStorageFile + "." + (extension + 1);
@@ -87,7 +83,6 @@ public class UserRegistryAPI {
 		}
 	}
 
-	// Effettuo il recupero delle informazioni degli utenti (restore)
 	public synchronized void restore() {
 		int extension = buildStorageFileExtension();
 		if (extension == -1) {
@@ -97,7 +92,7 @@ public class UserRegistryAPI {
 			System.err.println("Restore storage from: " + fileName);
 			try {
 				ur.load(fileName);
-			} catch (/*ClassNotFoundException | */IOException e) {
+			} catch (IOException e) {
 				System.err.println("Restore failed - starting a new registry " + e.getCause() + " " + e.getMessage());
 				ur = new UserRegistry();
 			} catch (ClassNotFoundException e) {

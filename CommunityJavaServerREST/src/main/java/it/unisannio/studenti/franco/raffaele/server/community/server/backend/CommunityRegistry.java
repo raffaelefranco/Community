@@ -68,7 +68,7 @@ public class CommunityRegistry {
 		if (!questions.containsKey(title))
 			throw new InvalidKeyException("Chiave non valida: " + title);
 		if ((getQuestionByTitle(title).getStatus() == Costant.STATUSOPEN))
-			throw new InvalidStatusException("La richiesta � gi� stata chiusa");
+			throw new InvalidStatusException("La richiesta già stata chiusa");
 		response.setUser(user);
 		getQuestionByTitle(title).addResponse(response);
 		responses.add(response);
