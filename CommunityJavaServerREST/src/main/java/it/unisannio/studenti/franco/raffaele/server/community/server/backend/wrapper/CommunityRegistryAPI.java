@@ -22,6 +22,10 @@ public class CommunityRegistryAPI {
 	public synchronized Question getQuestionByTitle(String title) throws InvalidKeyException {
 		return cr.getQuestionByTitle(title);
 	}
+	
+	public synchronized Response getResponseByUserEText(String user, String text) throws InvalidKeyException {
+		return cr.getResponse(user, text);
+	}
 
 	public synchronized ArrayList<String> getRequests() throws InvalidKeyException {
 		return cr.getRequests();
@@ -60,6 +64,16 @@ public class CommunityRegistryAPI {
 		commit();
 	}
 
+	public synchronized void setScoreQuestion(String title, String username, String score) throws InvalidKeyException, InvalidStatusException, InvalidUsernameException {
+		cr.setScoreQuestion(title, username, score);
+		commit();
+	}
+	public synchronized void setScoreResponse(String user, String text, String score) throws InvalidKeyException, InvalidStatusException, InvalidUsernameException {
+
+		cr.setScoreResponse(user, text, score);
+		commit();
+	}
+	
 	protected CommunityRegistryAPI() {
 		cr = new CommunityRegistry();
 	}

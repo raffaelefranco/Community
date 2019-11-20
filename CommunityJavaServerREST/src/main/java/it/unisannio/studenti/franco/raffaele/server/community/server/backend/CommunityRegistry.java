@@ -31,6 +31,17 @@ public class CommunityRegistry {
 		throw new InvalidKeyException("Chiave non valida: " + title);
 	}
 
+	public Response getResponse(String user, String text) throws InvalidKeyException {
+
+		
+		for (Response r : responses) {
+		
+			if (r.getUser().equals(user) && r.getText().equals(text))
+				return r;
+		}
+		return null;
+	}
+
 	public Set<String> titles() {
 		return questions.keySet();
 	}
@@ -57,7 +68,7 @@ public class CommunityRegistry {
 		if (!questions.containsKey(title))
 			throw new InvalidKeyException("Chiave non valida: " + title);
 		if ((getQuestionByTitle(title).getStatus() == Costant.STATUSOPEN))
-			throw new InvalidStatusException("La richiesta � gi� stata chiusa");
+			throw new InvalidStatusException("La richiesta già stata chiusa");
 		response.setUser(user);
 		getQuestionByTitle(title).addResponse(response);
 		responses.add(response);
@@ -85,6 +96,35 @@ public class CommunityRegistry {
 		q.setStatus(Costant.STATUSCLOSED);
 	}
 
+	public void setScoreQuestion(String title, String username, String score)
+			throws InvalidKeyException, InvalidStatusException, InvalidUsernameException {
+		if (!questions.containsKey(title))
+			throw new InvalidKeyException("Chiave non valida: " + title);
+
+		Question q = questions.get(title);
+
+		if (score.contentEquals("5"))
+			q.incrementScore(5);
+		else if (score.contentEquals("2"))
+			q.decrementScore(2);
+		else
+			throw new InvalidStatusException("Score sbagliato!");
+
+	}
+	
+	public void setScoreResponse(String user, String text, String score)
+			throws InvalidKeyException, InvalidStatusException, InvalidUsernameException {
+			
+		Response r = getResponse(user, text);
+		
+		if (score.contentEquals("10"))
+			r.incrementScore(10);
+		else if (score.contentEquals("2"))
+			r.decrementScore(2);
+		responses.add(r);
+
+	}
+
 	public boolean contains(String key) {
 		return questions.containsKey(key);
 	}
@@ -102,6 +142,9 @@ public class CommunityRegistry {
 		FileInputStream fileIn = new FileInputStream(fileName);
 		ObjectInputStream in = new ObjectInputStream(fileIn);
 		questions = (LinkedHashMap<String, Question>) in.readObject();
+		for(Question q : questions.values()) {
+			responses.addAll(q.getResponses());
+		}
 		in.close();
 		fileIn.close();
 	}

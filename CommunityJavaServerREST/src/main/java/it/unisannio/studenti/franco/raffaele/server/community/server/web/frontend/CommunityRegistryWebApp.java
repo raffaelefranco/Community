@@ -18,6 +18,8 @@ import it.unisannio.studenti.franco.raffaele.server.community.server.backend.wra
 import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.CommunityRegJSON;
 import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.CommunityRegistryJSON;
 import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.QuestionJSON;
+import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.ScoreRequestJSON;
+import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.ScoreResponseJSON;
 import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.UserLogJSON;
 import it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json.UserRegJSON;
 
@@ -51,7 +53,9 @@ public class CommunityRegistryWebApp extends Application {
 		router.attach("/CommunityApplication/opened_requests_title/{title}", QuestionJSON.class);
 		router.attach("/CommunityApplication/opened_requests/{title}/response", QuestionJSON.class);
 		router.attach("/CommunityApplication/closed_requests/{username}/{title}", QuestionJSON.class);
-
+		router.attach("/CommunityApplication/score_requests/{username}", ScoreRequestJSON.class);
+		router.attach("/CommunityApplication/score_responses/{username}", ScoreResponseJSON.class);
+		
 		return router;
 	}
 

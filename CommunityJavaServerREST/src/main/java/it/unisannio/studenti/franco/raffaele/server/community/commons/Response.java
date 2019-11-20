@@ -10,6 +10,7 @@ public class Response implements Serializable {
 		this.text = text;
 		this.user = null;
 		this.question = null;
+		this.score = 0;
 	}
 
 	public String getText() {
