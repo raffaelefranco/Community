@@ -81,7 +81,6 @@ public class ClosedRequestActivity extends AppCompatActivity {
                 }
             } catch (ResourceException | IOException e1) {
                 if (org.restlet.data.Status.CLIENT_ERROR_UNAUTHORIZED.equals(cr.getStatus())) {
-                    // Unauthorized access
                     jsonResponse = "Access unauthorized by the server, check your credentials";
                     Log.e(TAG, jsonResponse);
                 } else {

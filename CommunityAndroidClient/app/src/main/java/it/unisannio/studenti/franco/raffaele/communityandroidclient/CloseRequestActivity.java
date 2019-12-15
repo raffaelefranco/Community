@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import org.restlet.resource.ClientResource;
@@ -36,6 +38,7 @@ public class CloseRequestActivity extends AppCompatActivity {
     private AutoCompleteTextView title;
     private final String TAG = "Community";
     private String[] questions;
+    private Button ok;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class CloseRequestActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences(prefName, MODE_PRIVATE);
         title = (AutoCompleteTextView) findViewById(R.id.title_auto);
-        Button ok = (Button) findViewById(R.id.remove_button);
+        ok = (Button) findViewById(R.id.remove_button);
         Button cancel = (Button) findViewById(R.id.not_remove_button);
 
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +96,6 @@ public class CloseRequestActivity extends AppCompatActivity {
                     throw gson.fromJson(jsonResponse, InvalidKeyException.class);
             } catch (ResourceException | IOException e1) {
                 if (org.restlet.data.Status.CLIENT_ERROR_UNAUTHORIZED.equals(cr.getStatus())) {
-                    // Unauthorized access
                     jsonResponse = "Access unauthorized by the server, check your credentials";
                     Log.e(TAG, jsonResponse);
                 } else {
@@ -112,7 +114,7 @@ public class CloseRequestActivity extends AppCompatActivity {
         protected void onPostExecute(String res) {
 
             preferences.getStringSet("titles", titles);
-            Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+            Snackbar.make(ok, res, Snackbar.LENGTH_LONG).show();
 
             titles = preferences.getStringSet("titles", titles);
 

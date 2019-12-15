@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
@@ -25,7 +26,6 @@ import org.restlet.resource.ResourceException;
 import java.io.IOException;
 
 import it.unisannio.studenti.franco.raffaele.communityandroidclient.commons.ErrorCodes;
-
 
 public class LoginActivity extends AppCompatActivity {
 

@@ -72,12 +72,9 @@ public class AnswerActivity extends AppCompatActivity {
 
     public class AnswerUserTask extends AsyncTask<String, Void, String> {
 
-        /* AsyncTask per l'esecuzione in background delle operazioni asincrone dedicate alla registrazione di un nuovo utente */
-
         @Override
         protected String doInBackground(String... params) {
             ClientResource cr;
-            // Creo la risorsa client basandomi su una URI costituita da baseURI + parametro passato dal metodo di gestione di un componente grafico (bottone) */
             Gson gson = new Gson();
             String username = preferences.getString("username", null);
 
@@ -91,8 +88,8 @@ public class AnswerActivity extends AppCompatActivity {
             String payload = username + ":" + params[0];
 
             try {
-                question = cr.post(gson.toJson(payload, String.class)).getText(); // Effettuo la Request HTTP con metodo "POST" e inserisco in response la Response HTTP.
-                if (cr.getStatus().getCode() == ErrorCodes.INVALID_KEY_CODE) // Se mi viene restituito il codice di errore per una chiave invalida, lancio l'eccezione (ad esempio, Username duplicato)
+                question = cr.post(gson.toJson(payload, String.class)).getText();
+                if (cr.getStatus().getCode() == ErrorCodes.INVALID_KEY_CODE);
                     throw gson.fromJson(question, InvalidKeyException.class);
             } catch (IOException e) {
                 String text = "Error: " + cr.getStatus().getCode() + " - " + cr.getStatus().getDescription() + " - " + cr.getStatus().getReasonPhrase();
