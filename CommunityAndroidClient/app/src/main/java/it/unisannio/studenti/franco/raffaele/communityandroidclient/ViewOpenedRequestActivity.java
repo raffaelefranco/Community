@@ -164,7 +164,6 @@ public class ViewOpenedRequestActivity extends AppCompatActivity {
                 question = gson.fromJson(jsonResponse, Question.class);
             } catch (ResourceException | IOException e1) {
                 if (org.restlet.data.Status.CLIENT_ERROR_UNAUTHORIZED.equals(cr.getStatus())) {
-                    // Unauthorized access
                     jsonResponse = "Access unauthorized by the server, check your credentials";
                     Log.e(TAG, jsonResponse);
                 } else {
@@ -224,7 +223,6 @@ public class ViewOpenedRequestActivity extends AppCompatActivity {
                     throw gson.fromJson(jsonResponse, InvalidKeyException.class);
             } catch (ResourceException | IOException e1) {
                 if (org.restlet.data.Status.CLIENT_ERROR_UNAUTHORIZED.equals(cr.getStatus())) {
-                    // Unauthorized access
                     jsonResponse = "Access unauthorized by the server, check your credentials";
                     Log.e(TAG, jsonResponse);
                 } else {
@@ -244,7 +242,7 @@ public class ViewOpenedRequestActivity extends AppCompatActivity {
 
             preferences.getStringSet("titles", titles);
 
-            Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+            Snackbar.make(title, res, Snackbar.LENGTH_LONG).show();
 
             titles = preferences.getStringSet("titles", titles);
 
@@ -282,7 +280,6 @@ public class ViewOpenedRequestActivity extends AppCompatActivity {
                     throw gson.fromJson(jsonResponse, InvalidKeyException.class);
             } catch (ResourceException | IOException e1) {
                 if (org.restlet.data.Status.CLIENT_ERROR_UNAUTHORIZED.equals(cr.getStatus())) {
-                    // Unauthorized access
                     jsonResponse = "Access unauthorized by the server, check your credentials";
                     Log.e(TAG, jsonResponse);
                 } else {

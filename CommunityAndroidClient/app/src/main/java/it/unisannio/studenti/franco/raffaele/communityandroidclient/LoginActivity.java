@@ -13,10 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import org.restlet.resource.ClientResource;
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private DialogFragment mDialog;
     private SharedPreferences preferences;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (mUsernameView.getText().toString().equals("") || mPasswordView.getText().toString().equals("")) {
-                    Toast.makeText(LoginActivity.this, R.string.insert_data, Toast.LENGTH_LONG).show();
+                    Snackbar.make(mLoginInButton, "Insert data", Snackbar.LENGTH_LONG).show();
                 } else
                     continueLogin();
             }
@@ -158,11 +161,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 startActivity(myIntent);
             } else if (c == 1) {
-                Toast.makeText(getApplicationContext(), R.string.unregistered, Toast.LENGTH_SHORT).show();
+                Snackbar.make(mLoginInButton, "Success credentials", Snackbar.LENGTH_LONG).show();
                 Intent myIntent = new Intent(LoginActivity.this, LoginActivity.class);
                 startActivity(myIntent);
             } else if (c == 2) {
-                Toast.makeText(getApplicationContext(), R.string.wrong_credential, Toast.LENGTH_SHORT).show();
+                Snackbar.make(mLoginInButton, "Wrong credentials", Snackbar.LENGTH_LONG).show();
                 Intent myIntent = new Intent(LoginActivity.this, LoginActivity.class);
                 startActivity(myIntent);
             }
