@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import org.restlet.resource.ClientResource;
@@ -50,7 +52,7 @@ public class NewRequestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (title.getText().toString().equals("") || text.getText().toString().equals(""))
-                    Toast.makeText(getApplicationContext(), getString(R.string.insert_data), Toast.LENGTH_SHORT).show();
+                    Snackbar.make(button_ok, "Insert data", Snackbar.LENGTH_LONG).show();
                 else
                     new NewRequestActivity.NewReqTask().execute(title.getText().toString(), text.getText().toString());
             }
@@ -100,7 +102,6 @@ public class NewRequestActivity extends AppCompatActivity {
                     throw gson.fromJson(jsonResponse, InvalidKeyException.class);
             } catch (ResourceException | IOException e1) {
                 if (org.restlet.data.Status.CLIENT_ERROR_UNAUTHORIZED.equals(cr.getStatus())) {
-                    // Unauthorized access
                     jsonResponse = "Access unauthorized by the server, check your credentials";
                     Log.e(TAG, jsonResponse);
                 } else {
@@ -119,7 +120,7 @@ public class NewRequestActivity extends AppCompatActivity {
         protected void onPostExecute(String res) {
 
             preferences.getStringSet("titles", titles);
-            Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+            Snackbar.make(button_ok, res, Snackbar.LENGTH_LONG).show();
 
             titles = preferences.getStringSet("titles", titles);
 
