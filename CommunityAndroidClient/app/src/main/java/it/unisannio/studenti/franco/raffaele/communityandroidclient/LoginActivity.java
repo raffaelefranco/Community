@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -27,7 +28,6 @@ import org.restlet.resource.ResourceException;
 import java.io.IOException;
 
 import it.unisannio.studenti.franco.raffaele.communityandroidclient.commons.ErrorCodes;
-
 
 public class LoginActivity extends AppCompatActivity {
 
