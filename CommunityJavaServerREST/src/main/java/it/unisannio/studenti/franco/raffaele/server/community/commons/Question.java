@@ -74,14 +74,12 @@ public class Question implements Serializable {
 	}
 
 	public void incrementScore(int increment) {
-		this.score+=increment;
+		this.score += increment;
 	}
 
 	public void decrementScore(int descrement) {
-		this.score-=descrement;
+		this.score -= descrement;
 	}
-	
-
 
 	private String title;
 	private String text;

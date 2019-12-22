@@ -92,7 +92,7 @@ class UserRegJSONTest {
 			String response = gson.fromJson(userRegJSON.addUser(userString), String.class);
 
 			assertEquals("User added: " + u.getUsername(), response);
-			
+			//using lambda expression https://howtoprogram.xyz/2016/08/12/junit-5-assertions-example/
 		} catch (ParseException e) {
 			fail();
 		}
