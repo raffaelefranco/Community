@@ -1,5 +1,6 @@
 package it.unisannio.studenti.franco.raffaele.server.community.commons;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;

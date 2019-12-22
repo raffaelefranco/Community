@@ -1,5 +1,7 @@
 package it.unisannio.studenti.franco.raffaele.server.community.commons;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
@@ -41,6 +43,25 @@ class QuestionTest {
 	void test() {
 		assertTrue(q.getTitle().equals(q1.getTitle()) && q.getText().equals(q1.getText())
 				&& q.getScore() == q1.getScore() && q.getStatus() == q1.getStatus());
+	}
+
+	@Test
+	void dependentAssertions() {
+		// Within a code block, if an assertion fails the
+		// subsequent code in the same block will be skipped.
+		assertAll("properties", () -> {
+			String title = q.getTitle();
+			assertNotNull(title);
+			// Executed only if the previous assertion is valid.
+			assertAll("title", () -> assertTrue(title.startsWith("q")), () -> assertTrue(title.endsWith("n")));
+		}, () -> {
+			// Grouped assertion, so processed independently
+			// of results of first name assertions.
+			String text = q.getText();
+			assertNotNull(text);
+			// Executed only if the previous assertion is valid.
+			assertAll("text", () -> assertTrue(text.startsWith("t")), () -> assertTrue(text.endsWith("t")));
+		});
 	}
 
 }

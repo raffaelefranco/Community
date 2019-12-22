@@ -27,7 +27,6 @@ public class ScoreResponseJSON extends ServerResource{
 		String user = st.nextToken();
 		String text = st.nextToken();
 		String score = st.nextToken();
-
 		
 		Response q;
 		try {

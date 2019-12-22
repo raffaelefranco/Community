@@ -12,12 +12,13 @@ class UserTest {
 
 	static User u;
 	static User u1;
+	static User u2;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		u = new User("raffaele", "123".toCharArray());
 		u1 = new User("gerardo", "123".toCharArray());
-		
+		u2 = new User("gerardo", "123".toCharArray());
 	}
 
 	@AfterAll
@@ -40,4 +41,11 @@ class UserTest {
 	void test1() {
 		assertTrue(u.getUsername().equals(u1.getUsername()));
 	}
+	
+	@Test 
+	void groupedAssertions() { 
+		assertAll("users", 
+				() -> assertEquals("gerardo", u2.getUsername()), 
+				() -> assertEquals(3, u2.getPassword().length)); 
+		}
 }
