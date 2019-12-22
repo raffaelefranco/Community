@@ -24,7 +24,7 @@ public class QuestionJSON extends ServerResource {
 		Gson gson = new Gson();
 		CommunityRegistryAPI nrapi = CommunityRegistryAPI.instance();
 		try {
-			Question q = nrapi.getQuestionByTitle((getAttribute("title").replace("%20", " ")));
+			Question q = nrapi.getQuestionByTitle(getAttribute("title").replace("%20", " "));
 			return gson.toJson(q, Question.class);
 		} catch (InvalidKeyException e) {
 			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
@@ -38,7 +38,7 @@ public class QuestionJSON extends ServerResource {
 		Gson gson = new Gson();
 		CommunityRegistryAPI nrapi = CommunityRegistryAPI.instance();
 		try {
-			Question q = nrapi.getQuestionByTitle((getAttribute("title").replace("%20", " ")));
+			Question q = nrapi.getQuestionByTitle(getAttribute("title").replace("%20", " "));
 			String response = gson.fromJson(payload, String.class);
 			StringTokenizer st = new StringTokenizer(response, ":", false);
 			String username = st.nextToken();

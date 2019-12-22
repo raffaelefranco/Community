@@ -59,9 +59,11 @@ public class User implements Serializable {
 		questions.remove(question.getTitle());
 	}
 
+
 	public String toString() {
 		return "User: " + username + ", " + String.valueOf(password) + ".";
 	}
+	
 
 	
 	private String username;

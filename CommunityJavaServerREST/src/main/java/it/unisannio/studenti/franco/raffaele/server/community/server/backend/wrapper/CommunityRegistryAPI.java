@@ -68,6 +68,7 @@ public class CommunityRegistryAPI {
 		cr.setScoreQuestion(title, username, score);
 		commit();
 	}
+	
 	public synchronized void setScoreResponse(String user, String text, String score) throws InvalidKeyException, InvalidStatusException, InvalidUsernameException {
 
 		cr.setScoreResponse(user, text, score);
