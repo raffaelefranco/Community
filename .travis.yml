@@ -1,13 +1,21 @@
-language: java
-script: cd CommunityJavaServerREST && mvn install
+matrix:
+  include:
+    - language: java
+      script: cd CommunityJavaServerREST && mvn install
 
-language: android
-jdk: oraclejdk8
-android:
-  components:
-    - platform-tools
-    - tools
-    - build-tools-29.0.2
-    - android-29
+    - language: android
+      jdk: oraclejdk8
+      android:
+        components:
+          - platform-tools
+          - tools
+          - build-tools-29.0.2
+          - android-29
+      script: cd CommunityAndroidClient && ./gradlew build
 
-script: cd CommunityAndroidClient && ./gradlew build
+notifications:
+  email:
+    - raffaelefranco1996@hotmail.com
+    - ambrosecchia.gerardo@gmail.com
+  on_success: change
+  on_failure: always
