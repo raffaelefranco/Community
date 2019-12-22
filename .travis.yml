@@ -1,17 +1,17 @@
 matrix:
   include:
-    -language: java
-    script: cd CommunityJavaServerREST && mvn install
+    - language: java
+      script: cd CommunityJavaServerREST && mvn install
 
-    -language: android
-    jdk: oraclejdk8
-    android:
-    components:
-      - platform-tools
-      - tools
-      - build-tools-29.0.2
-      - android-29
-    script: cd CommunityAndroidClient && ./gradlew build
+    - language: android
+      jdk: oraclejdk8
+      android:
+        components:
+          - platform-tools
+          - tools
+          - build-tools-29.0.2
+          - android-29
+      script: cd CommunityAndroidClient && ./gradlew build
 
 notifications:
   email:
