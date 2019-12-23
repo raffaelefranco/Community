@@ -1,8 +1,6 @@
 package it.unisannio.studenti.franco.raffaele.server.community.server.web.resources.json;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +19,7 @@ import it.unisannio.studenti.franco.raffaele.server.community.commons.User;
 import it.unisannio.studenti.franco.raffaele.server.community.server.backend.wrapper.CommunityRegistryAPI;
 import it.unisannio.studenti.franco.raffaele.server.community.server.backend.wrapper.UserRegistryAPI;
 
-class UserRegJSONTest {
+class QuestionJSONTest {
 
 	class Settings {
 		String storage_base_dir;
@@ -31,17 +29,17 @@ class UserRegJSONTest {
 		String web_base_dir;
 	}
 
-	static User u, u1;
+	static User user1, user2;
 	static Gson gson = new Gson();
 	static UserRegJSON userRegJSON = new UserRegJSON();
-	static UserRegJSON userRegJSON1 = new UserRegJSON();
+	static QuestionJSON questionJSON = new QuestionJSON();
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		Settings settings = null;
-		u = new User("raf", "1234".toCharArray());
-		u1 = new User("raf", "pssw".toCharArray());
-
+		user1 = new User("raffaele", "1234".toCharArray());
+		user2 = new User("gerardo", "1234".toCharArray());
+		
 		try {
 			Scanner scanner = new Scanner(new File("settings.json"));
 			settings = gson.fromJson(scanner.nextLine(), Settings.class);
@@ -69,7 +67,6 @@ class UserRegJSONTest {
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-
 		File dir = new File("users");
 
 		for (File file : dir.listFiles())
@@ -77,9 +74,9 @@ class UserRegJSONTest {
 				file.delete();
 	}
 
+
 	@BeforeEach
 	void setUp() throws Exception {
-
 	}
 
 	@AfterEach
@@ -87,37 +84,24 @@ class UserRegJSONTest {
 	}
 
 	@Test
-	void addUserTest1() {
-
-		String userString = gson.toJson(u, User.class);
-
+	void getQuestionTest() {
 		try {
-			String response = gson.fromJson(userRegJSON.addUser(userString), String.class);
-			assertEquals("User added: " + u.getUsername(), response);
-		} catch (ParseException e) {
-			fail();
-		}
-	}
-
-	@Test
-	void addUserTest2() {
-
-		String userString = gson.toJson(u1, User.class);
-
-		String response;
-		try {
-			response = userRegJSON1.addUser(userString);
-			assertTrue(response.contains("Duplicato"));
+			questionJSON.getQuestion();
+			assertTrue(true);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
-	}
-
-	@Test
-	void getOpenedQuestionsTest() {
-		userRegJSON.getOpenedQuestions();
-		assertTrue(true);
 	}
 	
+	@Test 
+	void postResponseTest() {
+		String payload = null;
+		
+		try {
+			questionJSON.postResponse(payload);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

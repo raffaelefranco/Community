@@ -41,10 +41,11 @@ public class UserRegJSON extends ServerResource {
 		try {
 			User u = urapi.getUser(getAttribute("username"));
 			return gson.toJson(crapi.getRequestsByUser(u.getUsername()), ArrayList.class);
-		} catch (InvalidUsernameException e) {
+		} catch (InvalidUsernameException | NullPointerException e) {
 			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
 			setStatus(s);
 			return gson.toJson(e, InvalidUsernameException.class);
 		}
+		
 	}
 }

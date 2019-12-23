@@ -33,18 +33,10 @@ public class ScoreRequestJSON extends ServerResource{
 			nrapi.setScoreQuestion(q.getTitle(), getAttribute("username"), score);
 			return gson.toJson("Question scored: " + q.getTitle(), String.class);
 			
-		} catch (InvalidKeyException e) {
+		} catch (InvalidKeyException | InvalidStatusException | InvalidUsernameException | NullPointerException e) {
 			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
 			setStatus(s);
 			return gson.toJson(e, InvalidKeyException.class);
-		} catch (InvalidStatusException e) {
-			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
-			setStatus(s);
-			return gson.toJson(e, InvalidStatusException.class);
-		} catch (InvalidUsernameException e) {
-			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
-			setStatus(s);
-			return gson.toJson(e, InvalidUsernameException.class);
 		}
 	}
 
