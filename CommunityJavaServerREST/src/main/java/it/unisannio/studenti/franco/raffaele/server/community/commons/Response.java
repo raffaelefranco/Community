@@ -13,6 +13,9 @@ public class Response implements Serializable {
 		this.score = 0;
 	}
 
+	public Response() {
+	}
+
 	public String getText() {
 		return text;
 	}

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.LinkedHashSet;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,6 +26,24 @@ class QuestionTest {
 
 		q.decrementScore(3);
 		q1.incrementScore(2);
+		System.out.println(q.getScore());
+		System.out.println(q.getStatus());
+		System.out.println(q.getText() + q.getTitle() + q.getUser());
+		System.out.println(q1.getResponses());
+
+		Response r = new Response("text");
+		Response r1 = new Response("text1");
+		LinkedHashSet<Response> responses = new LinkedHashSet<Response>();
+		responses.add(r);
+		q.addResponse(r1);
+		q.setResponses(responses);
+		
+		Question question = new Question("Title", "Text");
+		
+		question.setStatus("CLOSE");
+		question.setTitle("new Title");
+		question.setText("new Text");
+		
 
 	}
 
@@ -33,6 +53,7 @@ class QuestionTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		System.out.println(q.toString());
 	}
 
 	@AfterEach

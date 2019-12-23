@@ -1,6 +1,5 @@
 package it.unisannio.studenti.franco.raffaele.server.community.commons;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
@@ -23,6 +22,20 @@ class ResponseTest {
 
 		r.decrementScore(3);
 		r1.incrementScore(2);
+		System.out.println(r.getScore());
+		System.out.println(r.getText());
+		System.out.println(r.getUser());
+		System.out.println(r.getQuestion());
+
+		Question question = new Question("Title", "Text");
+
+		r1.setQuestion(question);
+		System.out.println(r.toString());
+
+		Response response = new Response();
+
+		response.setText("Text");
+		response.setUser("Raffaele");
 
 	}
 
@@ -32,6 +45,7 @@ class ResponseTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		System.out.println(r.toString());
 	}
 
 	@AfterEach
@@ -40,6 +54,7 @@ class ResponseTest {
 
 	@Test
 	void test() {
+		r.setUser("Raffaele");
 		assertTrue(r.getText().equals(r1.getText()) && r.getScore() == r1.getScore());
 	}
 

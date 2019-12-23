@@ -47,6 +47,10 @@ public class ScoreResponseJSON extends ServerResource{
 			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
 			setStatus(s);
 			return gson.toJson(e, InvalidUsernameException.class);
+		} catch (NullPointerException e) {
+			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
+			setStatus(s);
+			return gson.toJson(e, InvalidUsernameException.class);
 		}
 	}
 
