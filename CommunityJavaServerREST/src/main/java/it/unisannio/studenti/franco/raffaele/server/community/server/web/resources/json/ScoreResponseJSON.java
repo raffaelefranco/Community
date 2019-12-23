@@ -16,7 +16,7 @@ import it.unisannio.studenti.franco.raffaele.server.community.commons.InvalidUse
 import it.unisannio.studenti.franco.raffaele.server.community.commons.Response;
 import it.unisannio.studenti.franco.raffaele.server.community.server.backend.wrapper.CommunityRegistryAPI;
 
-public class ScoreResponseJSON extends ServerResource{
+public class ScoreResponseJSON extends ServerResource {
 
 	@Post
 	public String scoreQuestion(String payload) throws ParseException {
@@ -28,28 +28,18 @@ public class ScoreResponseJSON extends ServerResource{
 		String text = st.nextToken();
 		String score = st.nextToken();
 
-		
 		Response q;
 		try {
 			q = nrapi.getResponseByUserEText(user, text);
-			
+
 			nrapi.setScoreResponse(q.getUser(), q.getText(), score);
 			return gson.toJson("Response scored");
-			
-		} catch (InvalidKeyException e) {
+
+		} catch (InvalidKeyException | InvalidStatusException | InvalidUsernameException | NullPointerException e) {
 			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
 			setStatus(s);
 			return gson.toJson(e, InvalidKeyException.class);
-		} catch (InvalidStatusException e) {
-			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
-			setStatus(s);
-			return gson.toJson(e, InvalidStatusException.class);
-		} catch (InvalidUsernameException e) {
-			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
-			setStatus(s);
-			return gson.toJson(e, InvalidUsernameException.class);
 		}
 	}
 
-	
 }

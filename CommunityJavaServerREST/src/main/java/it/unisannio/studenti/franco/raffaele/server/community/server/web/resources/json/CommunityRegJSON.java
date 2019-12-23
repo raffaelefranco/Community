@@ -29,7 +29,7 @@ public class CommunityRegJSON extends ServerResource {
 		try {
 			User u = urapi.getUser(getAttribute("username"));
 			return gson.toJson(crapi.getClosedQuestions(u.getUsername()), ArrayList.class);
-		} catch (InvalidUsernameException e) {
+		} catch (InvalidUsernameException | NullPointerException e) {
 			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
 			setStatus(s);
 			return gson.toJson(e, InvalidUsernameException.class);
@@ -46,18 +46,10 @@ public class CommunityRegJSON extends ServerResource {
 			q = nrapi.getQuestionByTitle(title);
 			nrapi.setStatusQuestion(q.getTitle(), getAttribute("username"));
 			return gson.toJson("Question closed: " + q.getTitle(), String.class);
-		} catch (InvalidKeyException e) {
+		} catch (InvalidKeyException | InvalidStatusException | InvalidUsernameException e) {
 			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
 			setStatus(s);
 			return gson.toJson(e, InvalidKeyException.class);
-		} catch (InvalidStatusException e) {
-			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
-			setStatus(s);
-			return gson.toJson(e, InvalidStatusException.class);
-		} catch (InvalidUsernameException e) {
-			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);
-			setStatus(s);
-			return gson.toJson(e, InvalidUsernameException.class);
 		}
 	}
 

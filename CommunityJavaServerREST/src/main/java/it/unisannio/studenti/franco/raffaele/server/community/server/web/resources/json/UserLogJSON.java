@@ -24,7 +24,7 @@ public class UserLogJSON extends ServerResource {
 		String username = st.nextToken();
 		String password = st.nextToken();
 		User u = null;
-		try {
+		try { 
 			u = urapi.getUser(username);
 		} catch (InvalidUsernameException e) {
 			Status s = new Status(ErrorCodes.INVALID_KEY_CODE);

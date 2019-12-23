@@ -60,10 +60,9 @@ public class User implements Serializable {
 	}
 
 	public String toString() {
-		return "User: " + username + ", " + String.valueOf(password) + ".";
+		return "User: " + username + ", " + String.valueOf(password) + " ";
 	}
 
-	
 	private String username;
 	private char[] password;
 	private LinkedHashMap<String, Question> questions;
