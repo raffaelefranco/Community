@@ -14,6 +14,7 @@ import androidx.test.runner.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,13 +35,13 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class AnswerActivityTest {
+public class OpenedRequestActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void openedRequestActivityTest() {
+    public void allOpenedRequestActivityTest1() {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
@@ -90,6 +91,16 @@ public class AnswerActivityTest {
                         isDisplayed()));
         textView.check(matches(withText("New Request")));
 
+        ViewInteraction textView2 = onView(
+                allOf(withId(R.id.activity), withText("New Request"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listView),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textView2.check(matches(withText("New Request")));
+
         DataInteraction constraintLayout = onData(anything())
                 .inAdapterView(allOf(withId(R.id.listView),
                         childAtPosition(
@@ -98,65 +109,26 @@ public class AnswerActivityTest {
                 .atPosition(1);
         constraintLayout.perform(click());
 
-        DataInteraction textView2 = onData(anything())
+        ViewInteraction textView3 = onView(
+                allOf(withId(R.id.id), withText("who is the best professor of University of study of Sannio"),
+                        childAtPosition(
+                                allOf(withId(R.id.op_req_list),
+                                        childAtPosition(
+                                                IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
+                                                0)),
+                                0),
+                        isDisplayed()));
+        textView3.check(matches(withText("who is the best professor of University of study of Sannio")));
+
+        DataInteraction textView4 = onData(anything())
                 .inAdapterView(allOf(withId(R.id.op_req_list),
                         childAtPosition(
                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                 0)))
                 .atPosition(0);
-        textView2.perform(click());
+        textView4.perform(click());
 
         ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.answer), withText("Answer"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
-                        isDisplayed()));
-        appCompatButton2.perform(click());
-
-        ViewInteraction editText = onView(
-                allOf(withId(R.id.response_text),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        editText.check(matches(withText("")));
-
-        ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.response_text),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        appCompatEditText3.perform(replaceText("For me Max Di Penta"), closeSoftKeyboard());
-
-        ViewInteraction appCompatButton3 = onView(
-                allOf(withId(R.id.post_response), withText("OK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
-                        isDisplayed()));
-        appCompatButton3.perform(click());
-
-        ViewInteraction textView3 = onView(
-                allOf(withId(R.id.username_resp), withText("luigi"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.response_list),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textView3.check(matches(withText("luigi")));
-
-        ViewInteraction appCompatButton4 = onView(
                 allOf(withId(R.id.menu_button), withText("Menu"),
                         childAtPosition(
                                 childAtPosition(
@@ -164,17 +136,7 @@ public class AnswerActivityTest {
                                         0),
                                 9),
                         isDisplayed()));
-        appCompatButton4.perform(click());
-
-        ViewInteraction textView4 = onView(
-                allOf(withId(R.id.activity), withText("New Request"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.listView),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textView4.check(matches(withText("New Request")));
+        appCompatButton2.perform(click());
 
         ViewInteraction textView5 = onView(
                 allOf(withId(R.id.activity), withText("New Request"),
