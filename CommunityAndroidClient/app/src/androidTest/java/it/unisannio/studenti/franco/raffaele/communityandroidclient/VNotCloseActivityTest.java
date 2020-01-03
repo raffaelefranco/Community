@@ -36,13 +36,13 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class ZOpenedRequestActivityTest {
+public class VNotCloseActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void zOpenedRequestActivityTest() {
+    public void NotCloseActivityTest() {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
@@ -60,7 +60,7 @@ public class ZOpenedRequestActivityTest {
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("luigi"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("umb"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.password),
@@ -97,41 +97,70 @@ public class ZOpenedRequestActivityTest {
                         childAtPosition(
                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                 0)))
-                .atPosition(3);
+                .atPosition(2);
         constraintLayout.perform(click());
 
         ViewInteraction textView2 = onView(
-                allOf(withId(R.id.id), withText("what are the ingredients to make a cake"),
+                allOf(withId(R.id.id), withText("who is the best professor of University of study of Sannio"),
                         childAtPosition(
-                                allOf(withId(R.id.clo_req_list),
+                                allOf(withId(R.id.all_op_req_list),
                                         childAtPosition(
                                                 IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
                                                 0)),
                                 0),
                         isDisplayed()));
-        textView2.check(matches(withText("what are the ingredients to make a cake")));
+        textView2.check(matches(withText("who is the best professor of University of study of Sannio")));
 
         DataInteraction textView3 = onData(anything())
-                .inAdapterView(allOf(withId(R.id.clo_req_list),
+                .inAdapterView(allOf(withId(R.id.all_op_req_list),
                         childAtPosition(
                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                 0)))
                 .atPosition(0);
         textView3.perform(click());
 
-        ViewInteraction textView4 = onView(
-                allOf(withId(R.id.textView_username_req1), withText("luigi"),
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.close), withText("Close"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
+                                6),
+                        isDisplayed()));
+        appCompatButton2.perform(click());
+
+        ViewInteraction textView4 = onView(
+                allOf(withId(R.id.snackbar_text), withText("{\"detailMessage\":\"La richiesta non pu� essere chiusa da umb\",\"stackTrace\":[],\"suppressedExceptions\":[]}"),
+                        childAtPosition(
+                                childAtPosition(
+                                        IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
+                                        0),
                                 0),
                         isDisplayed()));
-        textView4.check(matches(withText("luigi")));
+        textView4.check(matches(withText("{\"detailMessage\":\"La richiesta non pu� essere chiusa da umb\",\"stackTrace\":[],\"suppressedExceptions\":[]}")));
 
         pressBack();
 
         pressBack();
+
+        DataInteraction constraintLayout2 = onData(anything())
+                .inAdapterView(allOf(withId(R.id.listView),
+                        childAtPosition(
+                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                0)))
+                .atPosition(5);
+        constraintLayout2.perform(click());
+
+        ViewInteraction appCompatButton3 = onView(
+                allOf(withId(android.R.id.button1), withText("Yes"),
+                        childAtPosition(
+                                allOf(withClassName(is("com.android.internal.widget.ButtonBarLayout")),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                3)),
+                                3),
+                        isDisplayed()));
+        appCompatButton3.perform(click());
     }
 
     private static Matcher<View> childAtPosition(
