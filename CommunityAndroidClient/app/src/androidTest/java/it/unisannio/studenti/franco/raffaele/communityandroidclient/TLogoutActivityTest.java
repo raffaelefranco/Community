@@ -35,13 +35,13 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class ViewResponseActivityTest {
+public class TLogoutActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void allActivityTest() {
+    public void logoutActivityTest() {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
@@ -118,43 +118,64 @@ public class ViewResponseActivityTest {
                 .atPosition(0);
         textView3.perform(click());
 
-        DataInteraction constraintLayout2 = onData(anything())
-                .inAdapterView(allOf(withId(R.id.response_list),
-                        childAtPosition(
-                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
-                                4)))
-                .atPosition(0);
-        constraintLayout2.perform(click());
-
-        ViewInteraction textView4 = onView(
-                allOf(withId(R.id.textView_username_req1), withText("luigi"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textView4.check(matches(withText("luigi")));
-
         ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.up),
+                allOf(withId(R.id.menu_button), withText("Menu"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                3),
+                                9),
                         isDisplayed()));
         appCompatButton2.perform(click());
 
+        ViewInteraction textView4 = onView(
+                allOf(withId(R.id.activity), withText("New Request"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listView),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textView4.check(matches(withText("New Request")));
+
+        DataInteraction constraintLayout2 = onData(anything())
+                .inAdapterView(allOf(withId(R.id.listView),
+                        childAtPosition(
+                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                0)))
+                .atPosition(5);
+        constraintLayout2.perform(click());
+
         ViewInteraction textView5 = onView(
-                allOf(withId(R.id.textView_username_req1), withText("luigi"),
+                allOf(withId(android.R.id.message), withText("Do you really want to exit?"),
+                        childAtPosition(
+                                childAtPosition(
+                                        IsInstanceOf.<View>instanceOf(android.widget.ScrollView.class),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textView5.check(matches(withText("Do you really want to exit?")));
+
+        ViewInteraction appCompatButton3 = onView(
+                allOf(withId(android.R.id.button1), withText("Yes"),
+                        childAtPosition(
+                                allOf(withClassName(is("com.android.internal.widget.ButtonBarLayout")),
+                                        childAtPosition(
+                                                withClassName(is("android.widget.LinearLayout")),
+                                                3)),
+                                3),
+                        isDisplayed()));
+        appCompatButton3.perform(click());
+
+        ViewInteraction editText = onView(
+                allOf(withId(R.id.username),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                0),
+                                1),
                         isDisplayed()));
-        textView5.check(matches(withText("luigi")));
+        editText.check(matches(withText("")));
     }
 
     private static Matcher<View> childAtPosition(

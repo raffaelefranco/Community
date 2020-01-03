@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -18,25 +19,29 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class LoginActivityTest6 {
+public class SNotCloseActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void loginActivityTest6() {
+    public void notCloseActivityTest() {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
@@ -46,28 +51,8 @@ public class LoginActivityTest6 {
             e.printStackTrace();
         }
 
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.signin), withText("Sign in"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
-                        isDisplayed()));
-        appCompatButton.perform(click());
-
-        ViewInteraction editText = onView(
-                allOf(withId(R.id.username1),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        editText.check(matches(withText("")));
-
         ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.username1),
+                allOf(withId(R.id.username),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -76,75 +61,92 @@ public class LoginActivityTest6 {
                         isDisplayed()));
         appCompatEditText.perform(replaceText("luigi"), closeSoftKeyboard());
 
-        ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.register), withText("Sign in"),
+        ViewInteraction appCompatEditText2 = onView(
+                allOf(withId(R.id.password),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                3),
+                                6),
                         isDisplayed()));
-        appCompatButton2.perform(click());
+        appCompatEditText2.perform(replaceText("123"), closeSoftKeyboard());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.snackbar_text), withText("Username and/or password are incorrect"),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("Username and/or password are incorrect")));
-
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.password1),
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(R.id.login), withText("Login"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
                                 4),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("123"), closeSoftKeyboard());
+        appCompatButton.perform(click());
+
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.activity), withText("New Request"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.listView),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textView.check(matches(withText("New Request")));
+
+        DataInteraction constraintLayout = onData(anything())
+                .inAdapterView(allOf(withId(R.id.listView),
+                        childAtPosition(
+                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                0)))
+                .atPosition(2);
+        constraintLayout.perform(click());
+
+        ViewInteraction textView2 = onView(
+                allOf(withId(R.id.id), withText("who is the best professor of University of study of Sannio"),
+                        childAtPosition(
+                                allOf(withId(R.id.all_op_req_list),
+                                        childAtPosition(
+                                                IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
+                                                0)),
+                                0),
+                        isDisplayed()));
+        textView2.check(matches(withText("who is the best professor of University of study of Sannio")));
+
+        DataInteraction textView3 = onData(anything())
+                .inAdapterView(allOf(withId(R.id.all_op_req_list),
+                        childAtPosition(
+                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                0)))
+                .atPosition(1);
+        textView3.perform(click());
+
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.close), withText("Close"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                6),
+                        isDisplayed()));
+        appCompatButton2.perform(click());
+
+        ViewInteraction textView4 = onView(
+                allOf(withId(R.id.snackbar_text), withText("{\"detailMessage\":\"La richiesta non pu� essere chiusa da luigi\",\"stackTrace\":[],\"suppressedExceptions\":[]}"),
+                        childAtPosition(
+                                childAtPosition(
+                                        IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textView4.check(matches(withText("{\"detailMessage\":\"La richiesta non pu� essere chiusa da luigi\",\"stackTrace\":[],\"suppressedExceptions\":[]}")));
 
         ViewInteraction appCompatButton3 = onView(
-                allOf(withId(R.id.register), withText("Sign in"),
+                allOf(withId(R.id.menu_button), withText("Menu"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                3),
+                                9),
                         isDisplayed()));
         appCompatButton3.perform(click());
-
-        ViewInteraction editText2 = onView(
-                allOf(withId(R.id.username1),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        editText2.check(matches(withText("")));
-
-        ViewInteraction appCompatButton4 = onView(
-                allOf(withId(R.id.cancel), withText("Cancel"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
-                        isDisplayed()));
-        appCompatButton4.perform(click());
-
-        ViewInteraction editText3 = onView(
-                allOf(withId(R.id.username),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        editText3.check(matches(withText("")));
     }
 
     private static Matcher<View> childAtPosition(
