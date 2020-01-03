@@ -35,13 +35,13 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class ClosedRequestActivityTest {
+public class ONewUserVoteResponseActivityTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void closedRequestActivityTest1() {
+    public void newUserVotoRispostaActivityTest() {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
@@ -59,7 +59,7 @@ public class ClosedRequestActivityTest {
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("luigi"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("maria"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.password),
@@ -69,7 +69,7 @@ public class ClosedRequestActivityTest {
                                         0),
                                 6),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("123"), closeSoftKeyboard());
+        appCompatEditText2.perform(replaceText("11"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.login), withText("Login"),
@@ -99,54 +99,41 @@ public class ClosedRequestActivityTest {
                 .atPosition(2);
         constraintLayout.perform(click());
 
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.id), withText("what are the ingredients to make a cake"),
-                        childAtPosition(
-                                allOf(withId(R.id.all_op_req_list),
-                                        childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
-                                                0)),
-                                1),
-                        isDisplayed()));
-        textView2.check(matches(withText("what are the ingredients to make a cake")));
-
-        DataInteraction textView3 = onData(anything())
+        DataInteraction textView2 = onData(anything())
                 .inAdapterView(allOf(withId(R.id.all_op_req_list),
                         childAtPosition(
                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                 0)))
-                .atPosition(1);
-        textView3.perform(click());
+                .atPosition(0);
+        textView2.perform(click());
+
+        DataInteraction constraintLayout2 = onData(anything())
+                .inAdapterView(allOf(withId(R.id.response_list),
+                        childAtPosition(
+                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                4)))
+                .atPosition(0);
+        constraintLayout2.perform(click());
 
         ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.close), withText("Close"),
+                allOf(withId(R.id.down),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                6),
+                                4),
                         isDisplayed()));
         appCompatButton2.perform(click());
 
-        ViewInteraction textView4 = onView(
-                allOf(withId(R.id.snackbar_text), withText("\"Question closed: what are the ingredients to make a cake\""),
+        ViewInteraction textView3 = onView(
+                allOf(withId(R.id.snackbar_text), withText("\"Response scored\""),
                         childAtPosition(
                                 childAtPosition(
                                         IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
                                         0),
                                 0),
                         isDisplayed()));
-        textView4.check(matches(withText("\"Question closed: what are the ingredients to make a cake\"")));
-
-        ViewInteraction appCompatButton3 = onView(
-                allOf(withId(R.id.menu_button), withText("Menu"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                9),
-                        isDisplayed()));
-        appCompatButton3.perform(click());
+        textView3.check(matches(withText("\"Response scored\"")));
     }
 
     private static Matcher<View> childAtPosition(
