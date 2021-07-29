@@ -2,7 +2,6 @@ matrix:
   include:
     - language: java
       script: cd CommunityJavaServerREST && mvn install
-
     - language: android
       jdk: oraclejdk8
       android:
